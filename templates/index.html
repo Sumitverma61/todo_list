@@ -1,39 +1,45 @@
 {% extends 'base.html' %}
 
-{% block head %}
-<title>Task Master</title>
-{% endblock %}
+<!-- {% block head %} -->
+<!-- <title>Task Master</title> -->
+<!-- {% endblock %} -->
 
 {% block body %}
-<div class="content">
-    <h1 style="text-align: center">Task Master</h1>
+<div class="flex flex-col items-center p-8 bg-gray-100 min-h-screen">
+    <h1 class="text-4xl font-bold text-center text-gray-800">Task Master</h1>
     {% if tasks|length < 1 %}
-    <h4 style="text-align: center">There are no tasks. Create one below!</h4>
+    <h4 class="mt-4 text-lg text-center text-gray-600">There are no tasks. Create one below!</h4>
     {% else %}
-    <table>
-        <tr>
-            <th>Task</th>
-            <th>Added</th>
-            <th>Actions</th>
-        </tr>
-        {% for task in tasks %}
-            <tr>
-                <td>{{ task.content }}</td>
-                <td>{{ task.date_created.date() }}</td>
-                <td>
-                    <a href="/delete/{{task.id}}">Delete</a>
-                    <br>
-                    <a href="/update/{{task.id}}">Update</a>
-                </td>
-            </tr>
-        {% endfor %}
-    </table>
+    <div class="overflow-x-auto w-full mt-6">
+        <table class="min-w-full bg-white border border-gray-300 rounded-lg">
+            <thead>
+                <tr class="bg-gray-200">
+                    <th class="py-2 px-4 border-b border-gray-300 text-left text-gray-800">Task</th>
+                    <th class="py-2 px-4 border-b border-gray-300 text-left text-gray-800">Added</th>
+                    <th class="py-2 px-4 border-b border-gray-300 text-left text-gray-800">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for task in tasks %}
+                <tr class="hover:bg-gray-100">
+                    <td class="py-2 px-4 border-b border-gray-300 text-gray-800">{{ task.content }}</td>
+                    <td class="py-2 px-4 border-b border-gray-300 text-gray-800">{{ task.date_created.date() }}</td>
+                    <td class="py-2 px-4 border-b border-gray-300">
+                        <a href="/delete/{{task.id}}" class="text-red-500 hover:underline">Delete</a>
+                        <br>
+                        <a href="/update/{{task.id}}" class="text-blue-500 hover:underline">Update</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
     {% endif %}
-
-    <div class="form">
-        <form action="/" method="POST">
-            <input type="text" name="content" id="content">
-            <input type="submit" value="Add Task">
+    
+    <div class="mt-8 w-full max-w-sm">
+        <form action="/" method="POST" class="flex">
+            <input type="text" name="content" id="content" placeholder="Add a new task" class="flex-grow p-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <input type="submit" value="Add Task" class="p-2 bg-blue-500 text-white rounded-r-lg hover:bg-blue-600 transition duration-200 cursor-pointer">
         </form>
     </div>
 </div>

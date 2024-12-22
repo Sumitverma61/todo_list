@@ -5,13 +5,13 @@
 {% endblock %}
 
 {% block body %}
-<div class="content">
-    <h1 style="text-align: center">Update Task</h1>
+<div class="flex flex-col items-center p-8 bg-gray-100 min-h-screen">
+    <h1 class="text-4xl font-bold text-center text-gray-800">Update Task</h1>
 
-    <div class="form">
-        <form action="/update/{{task.id}}" method="POST">
-            <input type="text" name="content" id="content" value="{{task.content}}">
-            <input type="submit" value="Update">
+    <div class="mt-6 w-full max-w-sm">
+        <form action="/update/{{task.id}}" method="POST" class="flex">
+            <input type="text" name="content" id="content" value="{{task.content}}" placeholder="Update your task" class="flex-grow p-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <input type="submit" value="Update" class="p-2 bg-blue-500 text-white rounded-r-lg hover:bg-blue-600 transition duration-200 cursor-pointer">
         </form>
     </div>
 </div>
